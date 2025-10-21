@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\BiodatasController;
-use App\Http\Controllers\ProductController;
-use App\Models\Post;
-use App\Models\Biodata;
+use App\Http\Controllers\ProductController; 
+use App\Http\Controllers\PenggunasController; 
+use App\Models\Product;
+use App\Models\Wali;
+use App\Models\Mahasiswa;
+use App\Http\Controllers\RelasiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -174,19 +177,79 @@ Route::get('siswa', function () {
 // });     
 
 
-Route::get('post', function(){
-    $post = new Post;
-    $post->title ="menjadi teman yang baik";
-    $post->content ="menjadi teman yang baik adalah hal positif";
-    $post->save();
-    return $post;
-});     
+// Route::get('post', function(){
+//     $post = new Post;
+//     $post->title ="menjadi teman yang baik";
+//     $post->content ="menjadi teman yang baik adalah hal positif";
+//     $post->save();
+//     return $post;
+// });     
 
-Route::get('biodata2', function () {
-  // return $siswa = Siswa::all();
-  $biodata = Biodata::all();
-    return view('halamanbiodata', compact('biodata'));
-});
+// Route::get('biodata2', function () {
+//   // return $siswa = Siswa::all();
+//   $biodata = Biodata::all();
+//     return view('halamanbiodata', compact('biodata'));
+// });
+
 
 Route::get('/product',[ProductController::class,'index'])->name('product');
 
+    // UNTUK MENGHAPUS 1 DATA
+Route::get('product_delete', function(){
+    $product = Product::find(13);
+    $product->delete();
+    return $product;
+});    
+
+    // UNTUK MERUBAH DATA
+Route::get('product_update', function () {
+    $product = Product::find(13);
+    $product->description = "Enakkk bangeettt";
+    $product->save();
+    return $product;
+    });
+
+    // UNTUK MENAMBAHKAN DATA
+Route::get('product_create', function(){
+    $product = new Product;
+    $product->name ="Bacitul";
+    $product->description ="enak";
+    $product->price = "7000";
+    $product->stock = "123";
+    $product->save();
+    return $product;
+});    
+
+    // UNTUK MENAMPILKAN SEMUA DATA
+Route::get('product_all', function () {
+   return $product = Product::all();
+});
+
+Route::get('product', function () {
+  // return $siswa = Siswa::all();
+  $product = Product::all();
+    return view('halamanproduct', compact('product'));
+});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('post', PostsController::class);
+
+Route::resource('biodata', BiodatasController::class);
+
+Route::resource('pengguna', PenggunasController::class);
+
+Route::get('/one-to-one', [RelasiController::class, 'oneToOne']);
+
+Route::get('/wali-ke-mahasiswa', function () {
+    $wali = Wali::with('mahasiswa')->first();
+    return "{$wali->nama} adalah wali dari {$wali->mahasiswa->nama}";
+});
+
+Route::get('/one-to-many', [RelasiController::class, 'oneToMany']);
+
+Route::get('/mahasiswa-ke-dosen', function () {
+    $mhs = Mahasiswa::where('nim', '123456')->first();
+    return "{$mhs->nama} dibimbing oleh {$mhs->dosen->nama}";
+});

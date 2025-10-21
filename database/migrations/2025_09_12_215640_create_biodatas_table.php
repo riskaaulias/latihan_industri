@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('biodatas', function (Blueprint $table) {
             $table->id();
-             $table->string('nama_lengkap')->unique();
+            $table->string('nama_lengkap');
             $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('telepon');
             $table->string('email');
+            $table->string('cover');
             $table->timestamps();
 
         });

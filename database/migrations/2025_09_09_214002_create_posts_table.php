@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('content');
+            $table->string('cover');
             $table->timestamps();
         });
     }
