@@ -15,26 +15,26 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-                    <a href="{{ route('pengguna.create') }}" class="btn btn-primary">Add</a>
+                    <a href="{{ route('kelas.create') }}" class="btn btn-primary">Add</a>
                 <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Nama</th>
+                    <th scope="col">Nama Kelas</th>
                     <th scope="col">Action</th>
                     </tr>
                     </tr>
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach($penggunas as $data)
+                    @foreach($kelas as $data)
                     <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{$data->nama}}</td>
+                    <td>{{$data->nama_kelas}}</td>
                     <td>
-                        <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-success">Edit</a>
-                        <a href="{{ route('pengguna.show', $data->id) }}" class="btn btn-warning">Show</a>
-                        <form action="{{ route('pengguna.destroy', $data->id) }}" method="POST">
+                        <a href="{{ route('kelas.edit', $data->id) }}" class="btn btn-success">Edit</a>
+                        <a href="{{ route('kelas.show', $data->id) }}" class="btn btn-warning">Show</a>
+                        <form action="{{ route('kelas.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin?')">Delete</button>

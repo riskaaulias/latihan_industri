@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">Data Pengguna</div>
+                <div class="card-header">Data Telepon</div>
 
                 <div class="card-body">
 
@@ -15,26 +15,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
-                    <a href="{{ route('pengguna.create') }}" class="btn btn-primary">Add</a>
+                    <a href="{{ route('telepon.create') }}" class="btn btn-primary">Add</a>
                 <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Nama</th>
+                    <th scope="col">Nomor</th>
+                    <th scope="col">Id Pengguna</th>
                     <th scope="col">Action</th>
                     </tr>
                     </tr>
                 </thead>
                 <tbody>
                     @php $no = 1; @endphp
-                    @foreach($penggunas as $data)
+                    @foreach($datatelepon as $data)
                     <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{$data->nama}}</td>
+                    <td>{{$data->nomor}}</td>
+                    <td>{{$data->pengguna->nama}}</td>
                     <td>
-                        <a href="{{ route('pengguna.edit', $data->id) }}" class="btn btn-success">Edit</a>
-                        <a href="{{ route('pengguna.show', $data->id) }}" class="btn btn-warning">Show</a>
-                        <form action="{{ route('pengguna.destroy', $data->id) }}" method="POST">
+                        <a href="{{ route('telepon.edit', $data->id) }}" class="btn btn-success">Edit</a>
+                        <a href="{{ route('telepon.show', $data->id) }}" class="btn btn-warning">Show</a>
+                        <form action="{{ route('telepon.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin?')">Delete</button>
